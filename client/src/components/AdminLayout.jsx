@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate, Outlet } from 'react-router-dom';
 import { useAdminAuth } from '../context/AdminAuthContext';
 import { useBoutique } from '../context/BoutiqueContext';
@@ -30,6 +30,12 @@ export const AdminLayout = () => {
   const navigate = useNavigate();
 
   // Route protection
+  useEffect(() => {
+    if (!loading && !isAuthenticated) {
+      navigate('/admin/login', { replace: true });
+    }
+  }, [loading, isAuthenticated, navigate]);
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-burgundy-950 text-gold-300">
@@ -42,7 +48,6 @@ export const AdminLayout = () => {
   }
 
   if (!isAuthenticated) {
-    navigate('/admin/login');
     return null;
   }
 

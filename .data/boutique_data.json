@@ -558,9 +558,9 @@
       "id": "admin_master_1",
       "name": "Reena Sharma (Owner & Chief Designer)",
       "email": "admin@reenasharma.com",
-      "passwordHash": "$2a$10$cGBKBwRkwcnhid8Tv/UIjOF6fKXdVtVSZf4XWfD/wvWXWuThqNHoq",
+      "passwordHash": "$2a$10$/4jJKeCVi/e0.0RIJk7Omu8rnZSd5gzsoEHuc09RNVIemPHS/al46",
       "role": "superadmin",
-      "createdAt": "2026-08-28T09:37:34.688Z"
+      "createdAt": "2026-08-28T09:41:01.056Z"
     }
   ],
   "settings": {
@@ -583,7 +583,7 @@
     "aboutStory": "रीना शर्मा बुटीक, महेंद्रगढ़ (हरियाणा) में आपका स्वागत है। हम फर्शी सलवार सूट, ब्राइडल लहंगे, पैडेड डिजाइनर साड़ी ब्लाउज, और कुर्ती सेट्स के लिए प्रसिद्ध हैं।\n\nयूट्यूब चैनल @Rehan09-wtr पर दिखाए जाने वाले सभी डिजाइन्स और कस्टम सिलाई हमारे बुटीक में 100% परफेक्ट फिटिंग के साथ उपलब्ध हैं।",
     "currencySymbol": "₹",
     "currencyCode": "INR",
-    "updatedAt": "2026-08-28T09:37:34.706Z",
+    "updatedAt": "2026-08-28T09:41:01.060Z",
     "address": "Mahendergarh - Budeen Rd, Mohlla Khatikan",
     "city": "Mahendragarh",
     "state": "Haryana",

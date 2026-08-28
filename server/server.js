@@ -39,8 +39,12 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Static files for uploaded images
 const uploadPath = path.join(__dirname, '..', 'public', 'uploads');
-if (!fs.existsSync(uploadPath)) {
-  fs.mkdirSync(uploadPath, { recursive: true });
+try {
+  if (!fs.existsSync(uploadPath)) {
+    fs.mkdirSync(uploadPath, { recursive: true });
+  }
+} catch (e) {
+  // Ignored on read-only serverless environments (Vercel)
 }
 app.use('/uploads', express.static(uploadPath));
 

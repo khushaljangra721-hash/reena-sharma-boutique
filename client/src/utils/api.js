@@ -1,14 +1,12 @@
-// Dynamic API Base URL & Image URL helper
-// On Render / Localhost -> uses relative '/api'
-// On Vercel -> connects directly to the live Render backend
+// Unified API Base URL & Image URL helper
+// All requests route cleanly via local /api (serverless on Vercel & Express on local/production)
 
 export const getApiUrl = (endpoint) => {
-  const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
-  
-  if (typeof window !== 'undefined' && window.location.hostname.includes('vercel.app')) {
-    return `https://reena-sharma-boutique.onrender.com${cleanEndpoint}`;
+  if (!endpoint) return '/api';
+  if (endpoint.startsWith('http://') || endpoint.startsWith('https://')) {
+    return endpoint;
   }
-  
+  const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
   return cleanEndpoint;
 };
 
@@ -18,5 +16,5 @@ export const getImageUrl = (src) => {
     return src;
   }
   const clean = src.startsWith('/') ? src : `/${src}`;
-  return `https://reena-sharma-boutique.onrender.com${clean}`;
+  return clean;
 };

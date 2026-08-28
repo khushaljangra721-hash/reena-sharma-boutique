@@ -76,22 +76,22 @@ app.use(async (req, res, next) => {
 });
 
 // API Routes
-app.use('/api/admin', authRoutes);
-app.use('/api/products', productRoutes);
-app.use('/api/categories', categoryRoutes);
-app.use('/api/offers', offerRoutes);
-app.use('/api/banners', bannerRoutes);
-app.use('/api/enquiries', enquiryRoutes);
-app.use('/api/settings', settingsRoutes);
-app.use('/api/videos', videoRoutes);
-app.use('/api/stats', statsRoutes);
-app.use('/api/upload', uploadRoutes);
-app.use('/api/customer', customerAuthRoutes);
+app.use(['/api/admin', '/admin'], authRoutes);
+app.use(['/api/products', '/products'], productRoutes);
+app.use(['/api/categories', '/categories'], categoryRoutes);
+app.use(['/api/offers', '/offers'], offerRoutes);
+app.use(['/api/banners', '/banners'], bannerRoutes);
+app.use(['/api/enquiries', '/enquiries'], enquiryRoutes);
+app.use(['/api/settings', '/settings'], settingsRoutes);
+app.use(['/api/videos', '/videos'], videoRoutes);
+app.use(['/api/stats', '/stats'], statsRoutes);
+app.use(['/api/upload', '/upload'], uploadRoutes);
+app.use(['/api/customer', '/customer'], customerAuthRoutes);
 app.use('/api', seoRoutes);
 app.use('/', seoRoutes);
 
 // Health check endpoint
-app.get('/api/health', (req, res) => {
+app.get(['/api/health', '/health'], (req, res) => {
   res.json({
     status: 'ok',
     brand: 'Reena Sharma Boutique',

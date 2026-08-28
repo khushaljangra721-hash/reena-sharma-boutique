@@ -124,10 +124,10 @@ async function persistDB(data) {
   // If MongoDB is connected, save to MongoDB Atlas in the background
   if (isMongoConnected) {
     try {
-      await BoutiqueModel.findOneAndUpdate(
+      await BoutiqueModel.updateOne(
         { key: 'boutique_data' },
-        { data, updatedAt: new Date() },
-        { upsert: true, returnDocument: 'after' }
+        { $set: { data, updatedAt: new Date() } },
+        { upsert: true }
       );
     } catch (err) {
       console.error('Failed to sync to MongoDB Atlas:', err);

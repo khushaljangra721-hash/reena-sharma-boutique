@@ -92,17 +92,22 @@ app.use((err, req, res, next) => {
 async function start() {
   try {
     await seedDatabase(false);
-    app.listen(PORT, () => {
-      console.log(`=======================================================`);
-      console.log(`🌸 Reena Sharma Boutique Server running on http://localhost:${PORT}`);
-      console.log(`📦 API available at http://localhost:${PORT}/api`);
-      console.log(`🔐 Admin Login at http://localhost:3000/admin/login`);
-      console.log(`   Email: admin@reenasharma.com | Password: Admin@12345`);
-      console.log(`=======================================================`);
-    });
+    if (!process.env.VERCEL) {
+      app.listen(PORT, () => {
+        console.log(`=======================================================`);
+        console.log(`🌸 Reena Sharma Boutique Server running on http://localhost:${PORT}`);
+        console.log(`📦 API available at http://localhost:${PORT}/api`);
+        console.log(`🔐 Admin Login at http://localhost:5000/admin/login`);
+        console.log(`   Email: admin@reenasharma.com | Password: Admin@12345`);
+        console.log(`=======================================================`);
+      });
+    }
   } catch (err) {
     console.error('Failed to start server:', err);
   }
 }
 
 start();
+
+export { app };
+export default app;

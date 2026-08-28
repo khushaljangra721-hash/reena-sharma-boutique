@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useBoutique } from '../context/BoutiqueContext';
+import { getApiUrl } from '../utils/api';
 import {
   Search,
   CheckCircle2,
@@ -30,7 +31,7 @@ export const OrderTrackingPage = () => {
     setLoading(true);
     setSearched(true);
     try {
-      const res = await fetch(`/api/tracking/search?q=${encodeURIComponent(query.trim())}`);
+      const res = await fetch(getApiUrl(`/api/tracking/search?q=${encodeURIComponent(query.trim())}`));
       const data = await res.json();
       if (data.success) {
         setOrders(data.orders || []);

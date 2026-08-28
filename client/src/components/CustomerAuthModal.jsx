@@ -208,7 +208,7 @@ export const CustomerAuthModal = () => {
                   <input
                     type="text"
                     required
-                    placeholder="उदा. 9812345678"
+                    placeholder="उदा. 9467830763"
                     value={identifier}
                     onChange={(e) => setIdentifier(e.target.value)}
                     className="w-full pl-9 pr-4 py-2.5 text-xs sm:text-sm rounded-xl border border-boutique-300 focus:outline-none focus:ring-2 focus:ring-burgundy-900"
@@ -285,7 +285,7 @@ export const CustomerAuthModal = () => {
                     <input
                       type="tel"
                       required
-                      placeholder="9812345678"
+                      placeholder="9467830763"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       className="w-full pl-9 pr-4 py-2 text-xs sm:text-sm rounded-xl border border-boutique-300 focus:outline-none focus:ring-2 focus:ring-burgundy-900"

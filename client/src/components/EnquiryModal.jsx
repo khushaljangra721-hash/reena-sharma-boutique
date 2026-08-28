@@ -194,7 +194,7 @@ export const EnquiryModal = () => {
                   <input
                     type="tel"
                     required
-                    placeholder="e.g. 9812345678"
+                    placeholder="e.g. 9467830763"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     className="w-full pl-9 pr-3 py-2 text-sm rounded-xl border border-boutique-300 focus:ring-2 focus:ring-burgundy-900 focus:outline-none"

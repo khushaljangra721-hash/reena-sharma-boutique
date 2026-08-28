@@ -42,7 +42,7 @@ export const PrivacyPolicyPage = () => {
 
         <h3 className="font-serif text-lg font-bold text-burgundy-950">5. Contact Us</h3>
         <p>
-          If you have any questions regarding your privacy, please visit us at Shop No. 12, Gandhi Chowk Market, Mahendragarh, Haryana 123029 or chat with us on WhatsApp at +91 98123 45678.
+          If you have any questions regarding your privacy, please visit us at 748Q+R37, Mahendergarh - Budeen Rd, Mohlla Khatikan, Mahendragarh, Haryana 123029 or chat with us on WhatsApp at +91 94678 30763.
         </p>
       </div>
     </div>

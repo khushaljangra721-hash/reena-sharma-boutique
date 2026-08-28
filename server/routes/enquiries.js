@@ -36,7 +36,7 @@ router.post('/', (req, res) => {
     }
 
     const settings = db.getSettings();
-    const boutiqueWhatsApp = settings.whatsappNumber || '919812345678';
+    const boutiqueWhatsApp = settings.whatsappNumber || '919467830763';
 
     const newEnquiry = db.insert('enquiries', {
       customerName,

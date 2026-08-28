@@ -122,7 +122,7 @@ export const ContactPage = () => {
                     onClick={() => openWhatsApp()}
                     className="text-emerald-700 font-bold hover:underline block text-sm font-mono mt-0.5"
                   >
-                    +{settings.whatsappNumber || '919812345678'} (Click to Chat)
+                    +{settings.whatsappNumber || '919467830763'} (Click to Chat)
                   </button>
                   <span className="text-[11px] text-charcoal-muted">तुरंत सिलाई व डिज़ाइन्स की जानकारी के लिए</span>
                 </div>
@@ -135,8 +135,8 @@ export const ContactPage = () => {
                 </div>
                 <div>
                   <span className="font-bold text-charcoal block">Phone Number (कॉलिंग नंबर)</span>
-                  <a href={`tel:${settings.phoneNumber}`} className="hover:text-burgundy-900 font-mono font-medium text-sm">
-                    {settings.phoneNumber || '+91 98123 45678'}
+                  <a href={`tel:${settings.phoneNumber || '+919467830763'}`} className="hover:text-burgundy-900 font-mono font-medium text-sm">
+                    {settings.phoneNumber || '+91 94678 30763'}
                   </a>
                 </div>
               </div>
@@ -240,7 +240,7 @@ export const ContactPage = () => {
                     <input
                       type="tel"
                       required
-                      placeholder="उदा. 9812345678"
+                      placeholder="उदा. 9467830763"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       className="w-full p-2.5 text-xs sm:text-sm rounded-xl border border-boutique-300 focus:ring-2 focus:ring-burgundy-900 focus:outline-none"

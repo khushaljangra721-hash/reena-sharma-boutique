@@ -55,8 +55,8 @@ export const AdminSettingsPage = () => {
         boutiqueName: settings.boutiqueName || 'Reena Sharma Boutique',
         tagline: settings.tagline || 'Modern Designs. Elegant Styles. Made for You.',
         subTagline: settings.subTagline || '',
-        whatsappNumber: settings.whatsappNumber || '919812345678',
-        phoneNumber: settings.phoneNumber || '+91 98123 45678',
+        whatsappNumber: settings.whatsappNumber || '919467830763',
+        phoneNumber: settings.phoneNumber || '+91 94678 30763',
         altPhoneNumber: settings.altPhoneNumber || '',
         email: settings.email || 'info@reenasharmaboutique.com',
         location: settings.location || 'Mahendragarh, Haryana, India',
@@ -232,10 +232,10 @@ export const AdminSettingsPage = () => {
                 name="whatsappNumber"
                 value={formData.whatsappNumber}
                 onChange={handleChange}
-                placeholder="919812345678"
+                placeholder="919467830763"
                 className="w-full p-2.5 text-xs sm:text-sm rounded-xl border border-slate-300 focus:outline-none font-mono font-bold text-emerald-800"
               />
-              <span className="text-[10px] text-slate-400">e.g. 919812345678 (no + or spaces)</span>
+              <span className="text-[10px] text-slate-400">e.g. 919467830763 (no + or spaces)</span>
             </div>
 
             <div>
@@ -247,7 +247,7 @@ export const AdminSettingsPage = () => {
                 name="phoneNumber"
                 value={formData.phoneNumber}
                 onChange={handleChange}
-                placeholder="+91 98123 45678"
+                placeholder="+91 94678 30763"
                 className="w-full p-2.5 text-xs sm:text-sm rounded-xl border border-slate-300 focus:outline-none font-mono"
               />
             </div>

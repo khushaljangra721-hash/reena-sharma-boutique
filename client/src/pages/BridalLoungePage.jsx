@@ -164,7 +164,7 @@ export const BridalLoungePage = () => {
             className="bg-[#25D366] hover:bg-[#20ba59] text-white font-bold px-8 py-4 rounded-full text-sm sm:text-base shadow-xl flex items-center gap-2 hover:scale-105 transition-all shrink-0"
           >
             <MessageCircle className="w-5 h-5" />
-            <span>Chat on WhatsApp (+91 98123 45678)</span>
+            <span>Chat on WhatsApp (+91 94678 30763)</span>
           </button>
         </div>
       </section>

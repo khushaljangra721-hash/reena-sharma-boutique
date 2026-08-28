@@ -294,11 +294,11 @@ export const Navbar = () => {
               </a>
               <span>|</span>
               <a
-                href={`tel:${settings.phoneNumber || '+919812345678'}`}
+                href={`tel:${settings.phoneNumber || '+919467830763'}`}
                 className="flex items-center gap-1 hover:text-gold-300 font-mono"
               >
                 <Phone className="w-3 h-3 text-gold-400" />
-                <span>{settings.phoneNumber || '+91 98123 45678'}</span>
+                <span>{settings.phoneNumber || '+91 94678 30763'}</span>
               </a>
             </div>
 

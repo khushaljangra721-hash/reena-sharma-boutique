@@ -8,8 +8,8 @@ export const BoutiqueProvider = ({ children }) => {
     tagline: 'Modern Designs. Elegant Styles. Made for You.',
     subTagline: 'Destination for latest dress designs, stylish outfits, cutting & stitching ideas and custom fashion in Mahendragarh, Haryana.',
     logoUrl: '/logo-icon.svg',
-    whatsappNumber: '919812345678',
-    phoneNumber: '+91 98123 45678',
+    whatsappNumber: '919467830763',
+    phoneNumber: '+91 94678 30763',
     email: 'info@reenasharmaboutique.com',
     location: 'Mahendragarh, Haryana 123029, India',
     fullAddress: '748Q+R37, Mahendergarh - Budeen Rd, Mohlla Khatikan, Mahendragarh, Haryana 123029',
@@ -221,7 +221,7 @@ export const BoutiqueProvider = ({ children }) => {
 
   // WhatsApp Helper function with Customer Name / Measurements auto-attached!
   const openWhatsApp = ({ product, customMessage, selectedSize, selectedColor } = {}) => {
-    const rawNumber = settings.whatsappNumber || '919812345678';
+    const rawNumber = settings.whatsappNumber || '919467830763';
     const cleanNumber = rawNumber.replace(/[^0-9]/g, '');
 
     let text = '';

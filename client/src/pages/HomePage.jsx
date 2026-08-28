@@ -293,8 +293,8 @@ export const HomePage = () => {
                   <Phone className="w-4 h-4 text-gold-700 shrink-0" />
                   <div>
                     <span className="font-bold text-charcoal block">Phone (कॉल करें):</span>
-                    <a href={`tel:${settings.phoneNumber || '+919812345678'}`} className="text-burgundy-900 font-bold font-mono hover:underline">
-                      {settings.phoneNumber || '+91 98123 45678'}
+                    <a href={`tel:${settings.phoneNumber || '+919467830763'}`} className="text-burgundy-900 font-bold font-mono hover:underline">
+                      {settings.phoneNumber || '+91 94678 30763'}
                     </a>
                   </div>
                 </div>
@@ -336,7 +336,7 @@ export const HomePage = () => {
               className="bg-white text-emerald-950 hover:bg-emerald-50 font-bold px-8 py-3.5 rounded-full text-xs sm:text-sm shadow-xl inline-flex items-center gap-2 transition-transform active:scale-95"
             >
               <MessageCircle className="w-4 h-4 text-[#25D366]" />
-              <span>WhatsApp चैट खोलें (+91 98123 45678)</span>
+              <span>WhatsApp चैट खोलें (+91 94678 30763)</span>
             </button>
           </div>
         </div>

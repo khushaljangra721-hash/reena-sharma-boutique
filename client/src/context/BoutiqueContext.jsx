@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { getApiUrl } from '../utils/api';
 
 const BoutiqueContext = createContext(null);
 
@@ -51,8 +52,8 @@ export const BoutiqueProvider = ({ children }) => {
   const loadInitialData = async () => {
     try {
       const [settingsRes, catRes] = await Promise.all([
-        fetch('/api/settings').then((r) => r.json()).catch(() => ({ settings: {} })),
-        fetch('/api/categories').then((r) => r.json()).catch(() => ({ categories: [] })),
+        fetch(getApiUrl('/api/settings')).then((r) => r.json()).catch(() => ({ settings: {} })),
+        fetch(getApiUrl('/api/categories')).then((r) => r.json()).catch(() => ({ categories: [] })),
       ]);
 
       if (settingsRes.success && settingsRes.settings) {
@@ -76,7 +77,7 @@ export const BoutiqueProvider = ({ children }) => {
       return;
     }
     try {
-      const res = await fetch('/api/customer/me', {
+      const res = await fetch(getApiUrl('/api/customer/me'), {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -84,13 +85,10 @@ export const BoutiqueProvider = ({ children }) => {
         setCustomer(data.customer);
         setCustomerOrders(data.enquiries || []);
       } else {
-        // Token invalid or expired
-        localStorage.removeItem('rsb_customer_token');
-        setCustomerToken(null);
-        setCustomer(null);
+        customerLogout();
       }
     } catch (err) {
-      console.error('Error fetching customer profile:', err);
+      console.error('Failed to fetch customer profile:', err);
     }
   };
 
@@ -108,7 +106,7 @@ export const BoutiqueProvider = ({ children }) => {
 
   // Customer Login
   const customerLogin = async (identifier, password) => {
-    const res = await fetch('/api/customer/login', {
+    const res = await fetch(getApiUrl('/api/customer/login'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ identifier, password }),
@@ -126,7 +124,7 @@ export const BoutiqueProvider = ({ children }) => {
 
   // Customer Register
   const customerRegister = async (formData) => {
-    const res = await fetch('/api/customer/register', {
+    const res = await fetch(getApiUrl('/api/customer/register'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),
@@ -153,7 +151,7 @@ export const BoutiqueProvider = ({ children }) => {
   // Update Customer Profile
   const updateCustomerProfile = async (profileData) => {
     if (!customerToken) return { success: false, message: 'Not logged in' };
-    const res = await fetch('/api/customer/profile', {
+    const res = await fetch(getApiUrl('/api/customer/profile'), {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -172,7 +170,7 @@ export const BoutiqueProvider = ({ children }) => {
   // Update Saved Measurements
   const updateCustomerMeasurements = async (measurements) => {
     if (!customerToken) return { success: false, message: 'Not logged in' };
-    const res = await fetch('/api/customer/measurements', {
+    const res = await fetch(getApiUrl('/api/customer/measurements'), {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

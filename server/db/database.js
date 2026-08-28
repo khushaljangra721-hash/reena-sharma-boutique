@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import mongoose from 'mongoose';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -13,50 +14,125 @@ if (!fs.existsSync(DATA_DIR)) {
 }
 
 let dbCache = null;
+let isMongoConnected = false;
 
-function readDB() {
-  if (dbCache) return dbCache;
-  if (!fs.existsSync(DB_FILE)) {
-    dbCache = {
-      products: [],
-      categories: [],
-      offers: [],
-      banners: [],
-      enquiries: [],
-      videos: [],
-      testimonials: [],
-      admin: [],
-      settings: {}
-    };
-    saveDB(dbCache);
-    return dbCache;
+// Mongoose Schema for Cloud Storage on MongoDB Atlas
+const BoutiqueDataSchema = new mongoose.Schema(
+  {
+    key: { type: String, required: true, unique: true, default: 'boutique_data' },
+    data: { type: mongoose.Schema.Types.Mixed, required: true },
+  },
+  { timestamps: true }
+);
+
+const BoutiqueModel = mongoose.models.BoutiqueData || mongoose.model('BoutiqueData', BoutiqueDataSchema);
+
+// Connect to MongoDB Atlas if MONGODB_URI is provided
+export async function initMongo() {
+  const uri = process.env.MONGODB_URI;
+  if (!uri) {
+    console.log('ℹ️ MONGODB_URI not found. Running with Local JSON Database.');
+    return false;
   }
+
   try {
-    const raw = fs.readFileSync(DB_FILE, 'utf-8');
-    dbCache = JSON.parse(raw);
-    return dbCache;
+    await mongoose.connect(uri, {
+      serverSelectionTimeoutMS: 5000,
+    });
+    isMongoConnected = true;
+    console.log('🍃 MongoDB Atlas Cloud Database connected successfully!');
+
+    // Sync cloud data into memory
+    let cloudDoc = await BoutiqueModel.findOne({ key: 'boutique_data' });
+    if (!cloudDoc) {
+      // First time MongoDB setup: seed cloud from local JSON
+      const localData = readLocalDB();
+      cloudDoc = await BoutiqueModel.create({
+        key: 'boutique_data',
+        data: localData,
+      });
+      console.log('✅ Initial boutique data seeded into MongoDB Atlas Cloud!');
+    }
+
+    dbCache = cloudDoc.data;
+    saveLocalDB(dbCache); // Keep local backup
+    return true;
   } catch (err) {
-    console.error('Error reading database file, returning empty schema', err);
-    dbCache = {
-      products: [],
-      categories: [],
-      offers: [],
-      banners: [],
-      enquiries: [],
-      videos: [],
-      testimonials: [],
-      admin: [],
-      settings: {}
-    };
-    return dbCache;
+    console.error('⚠️ MongoDB connection error, falling back to Local JSON:', err.message);
+    isMongoConnected = false;
+    return false;
   }
 }
 
-function saveDB(data) {
+function readLocalDB() {
+  if (!fs.existsSync(DB_FILE)) {
+    const initialSchema = {
+      products: [],
+      categories: [],
+      offers: [],
+      banners: [],
+      enquiries: [],
+      videos: [],
+      testimonials: [],
+      customers: [],
+      admin: [],
+      settings: {},
+    };
+    saveLocalDB(initialSchema);
+    return initialSchema;
+  }
+  try {
+    const raw = fs.readFileSync(DB_FILE, 'utf-8');
+    return JSON.parse(raw);
+  } catch (err) {
+    console.error('Error reading database file, returning empty schema', err);
+    return {
+      products: [],
+      categories: [],
+      offers: [],
+      banners: [],
+      enquiries: [],
+      videos: [],
+      testimonials: [],
+      customers: [],
+      admin: [],
+      settings: {},
+    };
+  }
+}
+
+function saveLocalDB(data) {
+  try {
+    const tempFile = `${DB_FILE}.tmp`;
+    fs.writeFileSync(tempFile, JSON.stringify(data, null, 2), 'utf-8');
+    fs.renameSync(tempFile, DB_FILE);
+  } catch (err) {
+    // Ignore in read-only serverless filesystems (e.g. Vercel)
+  }
+}
+
+function readDB() {
+  if (dbCache) return dbCache;
+  dbCache = readLocalDB();
+  return dbCache;
+}
+
+async function persistDB(data) {
   dbCache = data;
-  const tempFile = `${DB_FILE}.tmp`;
-  fs.writeFileSync(tempFile, JSON.stringify(data, null, 2), 'utf-8');
-  fs.renameSync(tempFile, DB_FILE);
+  saveLocalDB(data);
+
+  // If MongoDB is connected, save to MongoDB Atlas in the background
+  if (isMongoConnected) {
+    try {
+      await BoutiqueModel.findOneAndUpdate(
+        { key: 'boutique_data' },
+        { data, updatedAt: new Date() },
+        { upsert: true, new: true }
+      );
+    } catch (err) {
+      console.error('Failed to sync to MongoDB Atlas:', err);
+    }
+  }
 }
 
 export const db = {
@@ -71,7 +147,7 @@ export const db = {
   updateSettings: (newSettings) => {
     const data = readDB();
     data.settings = { ...data.settings, ...newSettings, updatedAt: new Date().toISOString() };
-    saveDB(data);
+    persistDB(data);
     return data.settings;
   },
   find: (collection, filterFn = () => true) => {
@@ -104,7 +180,7 @@ export const db = {
       updatedAt: new Date().toISOString(),
     };
     data[collection].unshift(newItem);
-    saveDB(data);
+    persistDB(data);
     return newItem;
   },
   updateById: (collection, id, updates) => {
@@ -117,7 +193,7 @@ export const db = {
       ...updates,
       updatedAt: new Date().toISOString(),
     };
-    saveDB(data);
+    persistDB(data);
     return data[collection][index];
   },
   deleteById: (collection, id) => {
@@ -126,16 +202,16 @@ export const db = {
     const beforeCount = data[collection].length;
     data[collection] = data[collection].filter((item) => String(item.id) !== String(id));
     const deleted = data[collection].length < beforeCount;
-    if (deleted) saveDB(data);
+    if (deleted) persistDB(data);
     return deleted;
   },
   setCollection: (collection, items) => {
     const data = readDB();
     data[collection] = items;
-    saveDB(data);
+    persistDB(data);
   },
   reload: () => {
     dbCache = null;
     return readDB();
-  }
+  },
 };

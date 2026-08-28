@@ -5,6 +5,7 @@ import fs from 'fs';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 import { seedDatabase } from './seed.js';
+import { initMongo } from './db/database.js';
 
 // Route imports
 import authRoutes from './routes/auth.js';
@@ -91,6 +92,7 @@ app.use((err, req, res, next) => {
 // Auto seed and start server
 async function start() {
   try {
+    await initMongo();
     await seedDatabase(false);
     if (!process.env.VERCEL) {
       app.listen(PORT, () => {

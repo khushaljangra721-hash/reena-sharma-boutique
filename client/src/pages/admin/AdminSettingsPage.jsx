@@ -365,7 +365,7 @@ export const AdminSettingsPage = () => {
                 name="instagramUrl"
                 value={formData.instagramUrl}
                 onChange={handleChange}
-                placeholder="https://www.instagram.com/reenasharma_boutique"
+                placeholder="https://www.instagram.com/reenasharma1854/?utm_source=ig_web_button_share_sheet"
                 className="w-full p-2.5 text-xs sm:text-sm rounded-xl border border-slate-300 focus:outline-none"
               />
             </div>
@@ -379,7 +379,7 @@ export const AdminSettingsPage = () => {
                 name="facebookUrl"
                 value={formData.facebookUrl}
                 onChange={handleChange}
-                placeholder="https://www.facebook.com/reenasharmaboutique"
+                placeholder="https://www.facebook.com/rehan.jangra.5"
                 className="w-full p-2.5 text-xs sm:text-sm rounded-xl border border-slate-300 focus:outline-none"
               />
             </div>

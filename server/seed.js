@@ -39,8 +39,8 @@ export async function seedDatabase(force = false) {
     googleMapsEmbedUrl: 'https://maps.google.com/maps?q=748Q%2BR37,+Mahendergarh+-+Budeen+Rd,+Mohlla+Khatikan,+Mahendragarh,+Haryana+123029&t=&z=16&ie=UTF8&iwloc=&output=embed',
     youtubeUrl: 'https://www.youtube.com/@Rehan09-wtr',
     youtubeHandle: '@Rehan09-wtr',
-    instagramUrl: 'https://www.instagram.com/reenasharma_boutique',
-    facebookUrl: 'https://www.facebook.com/reenasharmaboutique',
+    instagramUrl: 'https://www.instagram.com/reenasharma1854/?utm_source=ig_web_button_share_sheet',
+    facebookUrl: 'https://www.facebook.com/rehan.jangra.5',
     storeTimings: 'सोमवार – शनिवार: 10:00 AM – 8:30 PM | रविवार: अपॉइंटमेंट अनुसार',
     announcementText: '🌸 राम राम जी! रीना शर्मा बुटीक महेंद्रगढ़ • ऑर्डर व सिलाई के लिए WhatsApp करें 🌸',
     aboutStory: `रीना शर्मा बुटीक, महेंद्रगढ़ (हरियाणा) में आपका स्वागत है। हम फर्शी सलवार सूट, ब्राइडल लहंगे, पैडेड डिजाइनर साड़ी ब्लाउज, और कुर्ती सेट्स के लिए प्रसिद्ध हैं।

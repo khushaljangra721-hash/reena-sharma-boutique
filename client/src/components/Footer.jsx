@@ -82,7 +82,7 @@ export const Footer = () => {
                 <Youtube className="w-5 h-5" />
               </a>
               <a
-                href={settings.instagramUrl || 'https://www.instagram.com/reenasharma_boutique'}
+                href={settings.instagramUrl || 'https://www.instagram.com/reenasharma1854/?utm_source=ig_web_button_share_sheet'}
                 target="_blank"
                 rel="noreferrer"
                 className="w-9 h-9 rounded-full bg-gradient-to-tr from-yellow-500 via-pink-600 to-purple-600 text-white flex items-center justify-center transition-transform hover:scale-110 shadow-sm"
@@ -91,7 +91,7 @@ export const Footer = () => {
                 <Instagram className="w-5 h-5" />
               </a>
               <a
-                href={settings.facebookUrl || 'https://www.facebook.com/reenasharmaboutique'}
+                href={settings.facebookUrl || 'https://www.facebook.com/rehan.jangra.5'}
                 target="_blank"
                 rel="noreferrer"
                 className="w-9 h-9 rounded-full bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition-transform hover:scale-110 shadow-sm"

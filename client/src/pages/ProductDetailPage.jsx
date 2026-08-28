@@ -62,11 +62,16 @@ export const ProductDetailPage = () => {
     fabricQuality: 'Superb Soft',
   });
 
-  const fetchProductAndReviews = async () => {
+    const fetchProductAndReviews = async () => {
     setLoading(true);
     try {
+      // Create an abort controller with 8s timeout
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 8000);
+
       // 1. Fetch product
-      const res = await fetch(getApiUrl(`/api/products/${slug}`));
+      const res = await fetch(getApiUrl(`/api/products/${slug}`), { signal: controller.signal });
+      clearTimeout(timeoutId);
       const data = await res.json();
 
       if (data.success && data.product) {
@@ -80,22 +85,46 @@ export const ProductDetailPage = () => {
           setSelectedColor(data.product.colors[0]);
         }
 
-        // 2. Fetch reviews for this product
+        // 2. Fetch reviews non-blockingly
         try {
-          const revRes = await fetch(getApiUrl(`/api/reviews?productSlug=${slug}&productId=${data.product.id}`));
-          const revData = await revRes.json();
-          if (revData.success) {
-            setReviews(revData.reviews || []);
-            if (revData.stats) setReviewStats(revData.stats);
-          }
-        } catch (e) {
-          console.error('Error fetching reviews:', e);
-        }
+          fetch(getApiUrl(`/api/reviews?productSlug=${slug}&productId=${data.product.id}`))
+            .then((r) => r.json())
+            .then((revData) => {
+              if (revData && revData.success) {
+                setReviews(revData.reviews || []);
+                if (revData.stats) setReviewStats(revData.stats);
+              }
+            })
+            .catch(() => {});
+        } catch (e) {}
       } else {
-        navigate('/shop', { replace: true });
+        // Fallback: try search in products list
+        try {
+          const listRes = await fetch(getApiUrl('/api/products?limit=100'));
+          const listData = await listRes.json();
+          if (listData.success && listData.products) {
+            const found = listData.products.find((p) => p.slug === slug || String(p.id) === String(slug));
+            if (found) {
+              setProduct(found);
+              if (found.sizes && found.sizes.length > 0) setSelectedSize(found.sizes[0]);
+            }
+          }
+        } catch (err2) {}
       }
     } catch (err) {
       console.error('Failed to load product detail:', err);
+      // Fallback on network failure
+      try {
+        const listRes = await fetch(getApiUrl('/api/products?limit=100'));
+        const listData = await listRes.json();
+        if (listData.success && listData.products) {
+          const found = listData.products.find((p) => p.slug === slug || String(p.id) === String(slug));
+          if (found) {
+            setProduct(found);
+            if (found.sizes && found.sizes.length > 0) setSelectedSize(found.sizes[0]);
+          }
+        }
+      } catch (err3) {}
     } finally {
       setLoading(false);
     }
@@ -159,7 +188,17 @@ export const ProductDetailPage = () => {
     );
   }
 
-  if (!product) return null;
+  if (!product) {
+    return (
+      <div className="max-w-4xl mx-auto px-4 py-16 text-center space-y-4">
+        <h2 className="font-serif text-2xl font-bold text-burgundy-950">यह ड्रेस उपलब्ध नहीं है</h2>
+        <p className="text-xs text-charcoal-muted">शायद यह डिज़ाइन हटा दिया गया है या यूआरएल में त्रुटि है।</p>
+        <Link to="/shop" className="inline-block bg-burgundy-900 text-gold-200 px-6 py-2.5 rounded-xl text-xs font-bold shadow">
+          कैटलॉग देखें (Browse All Suits)
+        </Link>
+      </div>
+    );
+  }
 
   const images = Array.isArray(product.images) && product.images.length > 0
     ? product.images

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAdminAuth } from '../../context/AdminAuthContext';
+import { getApiUrl } from '../../utils/api';
 import {
   Star,
   Trash2,
@@ -22,7 +23,7 @@ export const AdminReviewsPage = () => {
   const fetchReviews = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/reviews/admin', { headers: authHeaders });
+      const res = await fetch(getApiUrl('/api/reviews/admin'), { headers: authHeaders });
       const data = await res.json();
       if (data.success) {
         setReviews(data.reviews || []);
@@ -41,7 +42,7 @@ export const AdminReviewsPage = () => {
   const handleDelete = async (id) => {
     if (!window.confirm('Delete this customer review?')) return;
     try {
-      const res = await fetch(`/api/reviews/${id}`, {
+      const res = await fetch(getApiUrl(`/api/reviews/${id}`), {
         method: 'DELETE',
         headers: authHeaders,
       });

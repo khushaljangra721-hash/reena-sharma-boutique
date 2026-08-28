@@ -48,6 +48,33 @@ try {
 }
 app.use('/uploads', express.static(uploadPath));
 
+let isInitialized = false;
+let initPromise = null;
+
+export async function ensureInitialized() {
+  if (isInitialized) return;
+  if (!initPromise) {
+    initPromise = (async () => {
+      try {
+        await initMongo();
+        await seedDatabase(false);
+        isInitialized = true;
+      } catch (err) {
+        console.error('DB Initialization error:', err);
+      }
+    })();
+  }
+  return initPromise;
+}
+
+// Middleware to ensure DB is initialized before any API request on serverless (Vercel)
+app.use(async (req, res, next) => {
+  if (req.path.startsWith('/api')) {
+    await ensureInitialized();
+  }
+  next();
+});
+
 // API Routes
 app.use('/api/admin', authRoutes);
 app.use('/api/products', productRoutes);

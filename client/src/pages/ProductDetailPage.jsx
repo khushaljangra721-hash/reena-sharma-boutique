@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useBoutique } from '../context/BoutiqueContext';
 import { ProductCard } from '../components/ProductCard';
-import { getImageUrl } from '../utils/api';
+import { getImageUrl, getApiUrl } from '../utils/api';
 import {
   Heart,
   MessageCircle,
@@ -66,7 +66,7 @@ export const ProductDetailPage = () => {
     setLoading(true);
     try {
       // 1. Fetch product
-      const res = await fetch(`/api/products/${slug}`);
+      const res = await fetch(getApiUrl(`/api/products/${slug}`));
       const data = await res.json();
 
       if (data.success && data.product) {
@@ -82,7 +82,7 @@ export const ProductDetailPage = () => {
 
         // 2. Fetch reviews for this product
         try {
-          const revRes = await fetch(`/api/reviews?productSlug=${slug}&productId=${data.product.id}`);
+          const revRes = await fetch(getApiUrl(`/api/reviews?productSlug=${slug}&productId=${data.product.id}`));
           const revData = await revRes.json();
           if (revData.success) {
             setReviews(revData.reviews || []);
@@ -117,7 +117,7 @@ export const ProductDetailPage = () => {
     if (!reviewForm.userName || !reviewForm.comment) return;
     setSubmittingReview(true);
     try {
-      const res = await fetch('/api/reviews', {
+      const res = await fetch(getApiUrl('/api/reviews'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

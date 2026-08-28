@@ -31,6 +31,8 @@ import { CustomerProfilePage } from './pages/CustomerProfilePage';
 import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
 import { TermsPage } from './pages/TermsPage';
 import { NotFoundPage } from './pages/NotFoundPage';
+import { OrderTrackingPage } from './pages/OrderTrackingPage';
+import { AdminReviewsPage } from './pages/admin/AdminReviewsPage';
 
 // Admin Pages
 import { AdminLoginPage } from './pages/admin/AdminLoginPage';
@@ -221,6 +223,7 @@ export default function App() {
             <Route path="offers" element={<AdminOffersPage />} />
             <Route path="banners" element={<AdminBannersPage />} />
             <Route path="videos" element={<AdminVideosPage />} />
+            <Route path="reviews" element={<AdminReviewsPage />} />
             <Route path="enquiries" element={<AdminEnquiriesPage />} />
             <Route path="settings" element={<AdminSettingsPage />} />
           </Route>

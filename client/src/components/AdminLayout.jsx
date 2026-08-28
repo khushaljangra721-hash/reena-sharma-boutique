@@ -4,6 +4,7 @@ import { useAdminAuth } from '../context/AdminAuthContext';
 import { useBoutique } from '../context/BoutiqueContext';
 import {
   LayoutDashboard,
+  Star,
   Package,
   PlusCircle,
   FolderTree,
@@ -59,6 +60,7 @@ export const AdminLayout = () => {
     { label: 'Offers & Promos', path: '/admin/offers', icon: Tag },
     { label: 'Hero Banners', path: '/admin/banners', icon: ImageIcon },
     { label: 'YouTube Videos', path: '/admin/videos', icon: Youtube },
+    { label: 'Customer Reviews', path: '/admin/reviews', icon: Star },
     { label: 'Enquiries / Orders', path: '/admin/enquiries', icon: MessageSquare },
     { label: 'Website Settings', path: '/admin/settings', icon: Settings },
   ];

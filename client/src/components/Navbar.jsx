@@ -13,6 +13,7 @@ import {
   Sparkles,
   Crown,
   Scissors,
+  Clock,
   Home,
   ShoppingBag,
   Tag,
@@ -443,6 +444,12 @@ export const Navbar = () => {
                 >
                   <Scissors className="w-3.5 h-3.5 text-gold-600" />
                   <span>कस्टम सिलाई</span>
+                </Link>
+
+                {/* Track Order */}
+                <Link to="/track-order" className={`px-3 py-1.5 rounded-xl text-sm font-semibold flex items-center gap-1 transition-all ${isActive('/track-order') ? 'text-burgundy-950 bg-gold-200/80 border border-gold-400 font-bold' : 'text-charcoal-soft hover:text-burgundy-900 hover:bg-gold-50'}`}>
+                  <Clock className="w-3.5 h-3.5 text-gold-600" />
+                  <span>सूट स्टेटस</span>
                 </Link>
               </nav>
 

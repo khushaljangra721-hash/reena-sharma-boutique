@@ -20,6 +20,8 @@ import statsRoutes from './routes/stats.js';
 import uploadRoutes from './routes/upload.js';
 import seoRoutes from './routes/seo.js';
 import customerAuthRoutes from './routes/customerAuth.js';
+import reviewsRoutes from './routes/reviews.js';
+import trackingRoutes from './routes/tracking.js';
 
 dotenv.config();
 
@@ -87,6 +89,8 @@ app.use(['/api/videos', '/videos'], videoRoutes);
 app.use(['/api/stats', '/stats'], statsRoutes);
 app.use(['/api/upload', '/upload'], uploadRoutes);
 app.use(['/api/customer', '/customer'], customerAuthRoutes);
+app.use(['/api/reviews', '/reviews'], reviewsRoutes);
+app.use(['/api/tracking', '/tracking'], trackingRoutes);
 app.use('/api', seoRoutes);
 app.use('/', seoRoutes);
 

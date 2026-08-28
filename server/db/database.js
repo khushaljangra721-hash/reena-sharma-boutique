@@ -127,7 +127,7 @@ async function persistDB(data) {
       await BoutiqueModel.findOneAndUpdate(
         { key: 'boutique_data' },
         { data, updatedAt: new Date() },
-        { upsert: true, new: true }
+        { upsert: true, returnDocument: 'after' }
       );
     } catch (err) {
       console.error('Failed to sync to MongoDB Atlas:', err);

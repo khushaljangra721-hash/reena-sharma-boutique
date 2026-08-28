@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAdminAuth } from '../../context/AdminAuthContext';
 import { useBoutique } from '../../context/BoutiqueContext';
+import { getImageUrl } from '../../utils/api';
 import {
   Package,
   PlusCircle,
@@ -199,7 +200,7 @@ export const AdminProductsPage = () => {
                     <td className="p-3.5">
                       <div className="flex items-center gap-3">
                         <img
-                          src={prod.images?.[0] || 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=200&q=80'}
+                          src={getImageUrl(prod.images?.[0])}
                           alt={prod.name}
                           className="w-12 h-14 object-cover rounded-lg shrink-0 border border-slate-300"
                         />

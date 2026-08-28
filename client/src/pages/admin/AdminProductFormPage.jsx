@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { useAdminAuth } from '../../context/AdminAuthContext';
 import { useBoutique } from '../../context/BoutiqueContext';
+import { getImageUrl } from '../../utils/api';
 import {
   Package,
   ArrowLeft,
@@ -433,7 +434,7 @@ export const AdminProductFormPage = () => {
             <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-3 pt-2">
               {images.map((img, idx) => (
                 <div key={idx} className="relative aspect-[3/4] rounded-xl overflow-hidden border-2 border-slate-200 group bg-slate-100">
-                  <img src={img} alt={`Preview ${idx + 1}`} className="w-full h-full object-cover" />
+                  <img src={getImageUrl(img)} alt={`Preview ${idx + 1}`} className="w-full h-full object-cover" />
                   <button
                     type="button"
                     onClick={() => removeImage(idx)}

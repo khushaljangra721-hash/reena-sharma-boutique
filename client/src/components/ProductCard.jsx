@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useBoutique } from '../context/BoutiqueContext';
+import { getImageUrl } from '../utils/api';
 import { Heart, MessageCircle, Eye, Sparkles, Scissors, Check } from 'lucide-react';
 
 export const ProductCard = ({ product }) => {
@@ -30,7 +31,7 @@ export const ProductCard = ({ product }) => {
       <div className="relative aspect-[3/4] w-full overflow-hidden bg-boutique-100">
         <Link to={`/product/${product.slug}`} className="block w-full h-full">
           <img
-            src={isHovered && secondaryImage ? secondaryImage : primaryImage}
+            src={getImageUrl(isHovered && secondaryImage ? secondaryImage : primaryImage)}
             alt={product.name}
             className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
             loading="lazy"

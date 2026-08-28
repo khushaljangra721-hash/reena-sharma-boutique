@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useBoutique } from '../context/BoutiqueContext';
 import { ProductCard } from '../components/ProductCard';
+import { getImageUrl } from '../utils/api';
 import {
   Heart,
   MessageCircle,
@@ -130,7 +131,7 @@ export const ProductDetailPage = () => {
           {/* Main Large Image */}
           <div className="relative aspect-[3/4] rounded-3xl overflow-hidden bg-white shadow-luxury border border-boutique-200">
             <img
-              src={images[selectedImgIndex] || images[0]}
+              src={getImageUrl(images[selectedImgIndex] || images[0])}
               alt={product.name}
               className="w-full h-full object-cover object-top transition-transform duration-500 hover:scale-105"
             />
@@ -177,7 +178,7 @@ export const ProductDetailPage = () => {
                       : 'border-boutique-200 opacity-70 hover:opacity-100'
                   }`}
                 >
-                  <img src={img} alt="thumbnail" className="w-full h-full object-cover" />
+                  <img src={getImageUrl(img)} alt="thumbnail" className="w-full h-full object-cover" />
                 </button>
               ))}
             </div>

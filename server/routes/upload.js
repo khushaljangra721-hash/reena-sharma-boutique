@@ -11,8 +11,12 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const UPLOAD_DIR = path.join(__dirname, '..', '..', 'public', 'uploads');
 
-if (!fs.existsSync(UPLOAD_DIR)) {
-  fs.mkdirSync(UPLOAD_DIR, { recursive: true });
+try {
+  if (!fs.existsSync(UPLOAD_DIR)) {
+    fs.mkdirSync(UPLOAD_DIR, { recursive: true });
+  }
+} catch (e) {
+  // Ignored in read-only filesystems
 }
 
 // Storage Configuration
@@ -59,7 +63,9 @@ router.post('/multiple', authMiddleware, (req, res) => {
       return res.status(400).json({ success: false, message: 'No files uploaded.' });
     }
 
-    const urls = req.files.map((file) => `/uploads/${file.filename}`);
+    const baseUrl = process.env.RENDER_EXTERNAL_URL || 'https://reena-sharma-boutique.onrender.com';
+    const urls = req.files.map((file) => `${baseUrl}/uploads/${file.filename}`);
+    
     return res.json({
       success: true,
       message: `${req.files.length} images uploaded successfully`,
@@ -68,7 +74,7 @@ router.post('/multiple', authMiddleware, (req, res) => {
         filename: f.filename,
         originalName: f.originalname,
         size: f.size,
-        url: `/uploads/${f.filename}`,
+        url: `${baseUrl}/uploads/${f.filename}`,
       })),
     });
   });
@@ -87,7 +93,8 @@ router.post('/single', authMiddleware, (req, res) => {
       return res.status(400).json({ success: false, message: 'No file uploaded.' });
     }
 
-    const url = `/uploads/${req.file.filename}`;
+    const baseUrl = process.env.RENDER_EXTERNAL_URL || 'https://reena-sharma-boutique.onrender.com';
+    const url = `${baseUrl}/uploads/${req.file.filename}`;
     return res.json({
       success: true,
       message: 'Image uploaded successfully',
